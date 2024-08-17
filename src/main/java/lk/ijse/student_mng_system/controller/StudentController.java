@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lk.ijse.student_mng_system.dao.impl.StudentDataProcess;
 import lk.ijse.student_mng_system.dto.StudentDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -20,8 +22,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.UUID;
 
-@WebServlet(urlPatterns = "/studentData")
+@WebServlet(urlPatterns = "/studentData",loadOnStartup = 2)
 public class StudentController extends HttpServlet {
+    static Logger logger = LoggerFactory.getLogger(StudentController.class);
     private Connection connection;
 
     /*public String SAVE_STUDENT = "INSERT INTO Student (id, name, city, email, level) VALUES (?, ?, ?, ?, ?)";
@@ -31,6 +34,7 @@ public class StudentController extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
+        logger.info("Initializing StudentController with call init method");
         try {
             /*var driverClass = getServletContext().getInitParameter("driver-class");
             var dbUrl = getServletContext().getInitParameter("dbURL");
