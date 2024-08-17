@@ -35,6 +35,7 @@ public class StudentController extends HttpServlet {
     @Override
     public void init() throws ServletException {
         logger.info("Initializing StudentController with call init method");
+        logger.trace("Init called");
         try {
             /*var driverClass = getServletContext().getInitParameter("driver-class");
             var dbUrl = getServletContext().getInitParameter("dbURL");
@@ -105,6 +106,7 @@ public class StudentController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        logger.debug("Json type object");
         if (!req.getContentType().toLowerCase().contains("application/json")) {
             resp.sendError(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE);
             return;
@@ -152,6 +154,7 @@ public class StudentController extends HttpServlet {
         }catch (JsonException e){
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             throw new RuntimeException(e);
+            /*logger.error("Could not save student: ",e.getMessage());*/
         }
     }
 
